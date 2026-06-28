@@ -13,21 +13,28 @@
 **Vision.** One or two sentences: This is an app designed to help people who want healthy, structured meal plans. It can be used for people who want to subscribe to mealkits and those who just want extra recipes to try.
 
 **Glossary** Terms used in the project
-- **Term 1:** description.
-- **Term 2:** description
+- **Provider:** Anyone who wants to upload recipes, mealplans or mealkits.
+- **Customer:** A person seeking structure and or guidance in food habits and meals.
+- **Profile:** Informations about a user or provider including personal details, preferences, account info
+- **Subscription(s):** A specific piece of content provided by a verified provider. Specifically for ordering mealkits
+- **Recipe:** A set of instructions and a list of required ingredients to make a meal
+- **Mealplan:** A list of meals/recipes to make for a set amount of times(a day, a week, a month).
+- **Mealkit:** A set of ingredients to be delivered to a subscribing customer's location. Ingredients go with specified recified, preset recipes.
 
 **Primary Users / Roles.**
-- **Customer (e.g., Student/Patient/Pet Owner/etc. )** — 1 line goal statement.
-- **Provider (e.g., Teacher/Doctor/Pet Sitter/etc. )** — Provide customers with recipes, mealplans and mealkits.
+- **Customer (e.g., Student/Patient/Pet Owner/etc. )** — Find good recipes or stable meal plans.
+- **Provider (e.g., Teacher/Doctor/Pet Sitter/etc. )** — Attract customers and manage subscriptions.
 - **SysAdmin (optional)** — 1 line goal statement.
 
 **Scope (this semester).**
-- <capability 1>
-- <capability 2>
-- <capability 3>
+- Customer & Provider profiles
+- Browse and search by tags like recipe, mealkit or vegan, carnivore
+- Basic Mealkit/mealprep/recipe uploads
+- Basic statistic tracking
+- Reviews and Ratings
 
 **Out of scope (deferred).**
-- <deferred 1>
+- Advanced Mealkit/mealprep/recipe uploads
 - <deferred 2>
 
 > This document is **requirements‑level** and solution‑neutral; design decisions (UI layouts, API endpoints, schemas) are documented separately.
