@@ -62,3 +62,236 @@ body {
 .register-btn:hover {
     background-color: #256b44;
 }
+
+/* Dashboard page */
+body.dashboard {
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+.nav {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 12px 24px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+
+.nav button {
+    background: none;
+    border: none;
+    padding: 8px 12px;
+    font-family: inherit;
+    font-size: 16px;
+    color: #000000;
+    cursor: pointer;
+}
+
+.nav button:hover,
+.nav button:active {
+    color: #2e8b57;
+}
+
+.main {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+.header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-bar h1 {
+    margin: 0;
+}
+
+.create-btn {
+    padding: 10px 20px;
+    background-color: #2e8b57;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.create-btn:hover {
+    background-color: #256b44;
+}
+
+.stats-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: -14px;
+}
+
+.stats-section > h4 {
+    margin: 0;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 20vh;
+    padding: 0 24px;
+    border: 1px solid #f0f0f0;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+    box-sizing: border-box;
+}
+
+.stat {
+    text-align: center;
+}
+
+.panels {
+    display: flex;
+    flex: 1;
+    gap: 24px;
+}
+
+.panel-section {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.panel-section > h2 {
+    margin: 0;
+}
+
+.panel {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 24px;
+    margin-top: -12px;
+    border: 1px solid #f0f0f0;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+    box-sizing: border-box;
+    position: relative;
+}
+
+.panel-head {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    min-height: 36px;
+}
+
+.panel-head h2 {
+    margin: 0;
+}
+
+.panel-head button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 8px 16px;
+    background-color: #2e8b57;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.panel-head button:hover {
+    background-color: #256b44;
+}
+
+.panel ul {
+    flex: 1;
+}
+
+.upload-list {
+    overflow-y: auto;
+    max-height: 150px;
+    position: relative;
+}
+
+.upload-list::before {
+    content: '';
+    position: sticky;
+    top: 0;
+    display: block;
+    height: 40px;
+    margin-bottom: -35px;
+    background: linear-gradient(to bottom, #ffffff 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.upload-list::after {
+    content: '';
+    position: sticky;
+    bottom: 0;
+    display: block;
+    height: 40px;
+    margin-top: -40px;
+    background: linear-gradient(to bottom, transparent 50%, #ffffff 100%);
+    pointer-events: none;
+}
+
+.upload-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.upload-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.upload-list::-webkit-scrollbar-thumb {
+    background-color: #c0c0c0;
+    border-radius: 3px;
+}
+
+.upload-list::-webkit-scrollbar-button {
+    display: none;
+}
+
+.upload-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 8px;
+    padding: 4px 12px;
+    border: 1px solid #f0f0f0;
+    border-radius: 12px;
+    box-shadow: 0 6px 5px rgba(0, 0, 0, 0.18);
+    box-sizing: border-box;
+}
+
+.upload-item p {
+    max-width: 50%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin: 0;
+}
+
+.upload-item button {
+    background: none;
+    border: none;
+    padding: 8px 12px;
+    font-family: inherit;
+    font-size: 16px;
+    color: #000000;
+    cursor: pointer;
+}
+
+.upload-item button:hover,
+.upload-item button:active {
+    color: #2e8b57;
+}
