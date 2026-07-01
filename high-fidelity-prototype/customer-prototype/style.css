@@ -204,6 +204,12 @@ body {
     gap: 20px;
 }
 
+.no-results {
+    text-align: center;
+    color: #666666;
+    margin-top: 40px;
+}
+
 .service-card {
     background-color: #ffffff;
     border: 1px solid #f0f0f0;
@@ -212,6 +218,10 @@ body {
     padding: 20px;
     display: flex;
     flex-direction: column;
+}
+
+.service-card[hidden] {
+    display: none;
 }
 
 .card-image {
@@ -257,4 +267,12 @@ body {
 
 .subscribe-btn:hover {
     background-color: #234f87;
+}
+
+.subscribe-btn.subscribed {
+    background-color: #2e8b57;
+}
+
+.subscribe-btn.subscribed:hover {
+    background-color: #256b44;
 }

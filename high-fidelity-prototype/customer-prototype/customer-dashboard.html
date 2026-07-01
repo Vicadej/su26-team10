@@ -22,16 +22,16 @@
         
 
         <div class="filter-tags">
-            <span class="tag-pill active">All</span>
-            <span class="tag-pill">Vegan</span>
-            <span class="tag-pill">Carnivore</span>
-            <span class="tag-pill">Mealkit</span>
-            <span class="tag-pill">Recipe</span>
-            <span class="tag-pill">Mealplan</span>
+            <span class="tag-pill active" data-filter="All">All</span>
+            <span class="tag-pill" data-filter="Vegan">Vegan</span>
+            <span class="tag-pill" data-filter="Carnivore">Carnivore</span>
+            <span class="tag-pill" data-filter="Mealkit">Mealkit</span>
+            <span class="tag-pill" data-filter="Recipe">Recipe</span>
+            <span class="tag-pill" data-filter="Mealplan">Mealplan</span>
         </div>
 
         <div class="card-grid">
-            <div class="service-card">
+            <div class="service-card" data-tags="Vegan Mealplan">
                 <img class="card-image" src="images/vegan-reset.jpg" alt="7-Day Vegan Reset">
                 <div class="card-body">
                     <h4>7-Day Vegan Reset</h4>
@@ -45,7 +45,7 @@
                 <button class="subscribe-btn">Subscribe</button>
             </div>
 
-            <div class="service-card">
+            <div class="service-card" data-tags="Carnivore Mealkit">
                 <img class="card-image" src="images/high-protein.jpg" alt="High-Protein Mealkit">
                 <div class="card-body">
                     <h4>High-Protein Mealkit</h4>
@@ -59,7 +59,7 @@
                 <button class="subscribe-btn">Subscribe</button>
             </div>
 
-            <div class="service-card">
+            <div class="service-card" data-tags="Recipe">
                 <img class="card-image" src="images/noodle-bowls.jpg" alt="Weeknight Noodle Bowls">
                 <div class="card-body">
                     <h4>Weeknight Noodle Bowls</h4>
@@ -71,7 +71,83 @@
                 </div>
                 <button class="subscribe-btn">Subscribe</button>
             </div>
+
+            <div class="service-card" data-tags="Vegan Mealkit">
+                <img class="card-image" src="images/vegan-reset.jpg" alt="Plant-Powered Bowls">
+                <div class="card-body">
+                    <h4>Plant-Powered Bowls</h4>
+                    <p class="provider-name">by The Carrot Cart</p>
+                    <div class="card-tags">
+                        <span class="tag-pill small">Vegan</span>
+                        <span class="tag-pill small">Mealkit</span>
+                    </div>
+                    <p class="rating">4.7 (64 reviews)</p>
+                </div>
+                <button class="subscribe-btn">Subscribe</button>
+            </div>
+
+            <div class="service-card" data-tags="Carnivore Mealplan">
+                <img class="card-image" src="images/high-protein.jpg" alt="Carnivore Reset Plan">
+                <div class="card-body">
+                    <h4>Carnivore Reset Plan</h4>
+                    <p class="provider-name">by Iron Fork Kitchen</p>
+                    <div class="card-tags">
+                        <span class="tag-pill small">Carnivore</span>
+                        <span class="tag-pill small">Mealplan</span>
+                    </div>
+                    <p class="rating">4.5 (47 reviews)</p>
+                </div>
+                <button class="subscribe-btn">Subscribe</button>
+            </div>
+
+            <div class="service-card" data-tags="Recipe">
+                <img class="card-image" src="images/noodle-bowls.jpg" alt="5-Ingredient Dinners">
+                <div class="card-body">
+                    <h4>5-Ingredient Dinners</h4>
+                    <p class="provider-name">by Simple Suppers</p>
+                    <div class="card-tags">
+                        <span class="tag-pill small">Recipe</span>
+                    </div>
+                    <p class="rating">4.8 (98 reviews)</p>
+                </div>
+                <button class="subscribe-btn">Subscribe</button>
+            </div>
         </div>
+
+        <p class="no-results" hidden>No mealkits match this filter yet.</p>
     </div>
+
+    <script>
+        const filterTags = document.querySelectorAll('.filter-tags .tag-pill');
+        const cards = document.querySelectorAll('.service-card');
+        const noResults = document.querySelector('.no-results');
+        const subscribeButtons = document.querySelectorAll('.subscribe-btn');
+
+        subscribeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const subscribed = btn.classList.toggle('subscribed');
+                btn.textContent = subscribed ? 'Subscribed' : 'Subscribe';
+            });
+        });
+
+        filterTags.forEach(tag => {
+            tag.addEventListener('click', () => {
+                filterTags.forEach(t => t.classList.remove('active'));
+                tag.classList.add('active');
+
+                const filter = tag.dataset.filter;
+                let visibleCount = 0;
+
+                cards.forEach(card => {
+                    const tags = card.dataset.tags.split(' ');
+                    const matches = filter === 'All' || tags.includes(filter);
+                    card.hidden = !matches;
+                    if (matches) visibleCount++;
+                });
+
+                noResults.hidden = visibleCount > 0;
+            });
+        });
+    </script>
 </body>
 </html>
