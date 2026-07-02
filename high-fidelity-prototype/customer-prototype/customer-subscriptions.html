@@ -18,20 +18,10 @@
     </nav>
 
     <div class="dashboard-container">
-        <h3>Welcome back, Lebron!</h3>
-        
-
-        <div class="filter-tags">
-            <span class="tag-pill active" data-filter="All">All</span>
-            <span class="tag-pill" data-filter="Vegan">Vegan</span>
-            <span class="tag-pill" data-filter="Carnivore">Carnivore</span>
-            <span class="tag-pill" data-filter="Mealkit">Mealkit</span>
-            <span class="tag-pill" data-filter="Recipe">Recipe</span>
-            <span class="tag-pill" data-filter="Mealplan">Mealplan</span>
-        </div>
+        <h3>My Subscriptions</h3>
 
         <div class="card-grid">
-            <div class="service-card" data-id="vegan-reset" data-tags="Vegan Mealplan">
+            <div class="service-card" data-id="vegan-reset">
                 <img class="card-image" src="images/vegan-reset.jpg" alt="7-Day Vegan Reset">
                 <div class="card-body">
                     <h4>7-Day Vegan Reset</h4>
@@ -45,7 +35,7 @@
                 <button class="subscribe-btn">Subscribe</button>
             </div>
 
-            <div class="service-card" data-id="high-protein-mealkit" data-tags="Carnivore Mealkit">
+            <div class="service-card" data-id="high-protein-mealkit">
                 <img class="card-image" src="images/high-protein.jpg" alt="High-Protein Mealkit">
                 <div class="card-body">
                     <h4>High-Protein Mealkit</h4>
@@ -59,7 +49,7 @@
                 <button class="subscribe-btn">Subscribe</button>
             </div>
 
-            <div class="service-card" data-id="noodle-bowls" data-tags="Recipe">
+            <div class="service-card" data-id="noodle-bowls">
                 <img class="card-image" src="images/noodle-bowls.jpg" alt="Weeknight Noodle Bowls">
                 <div class="card-body">
                     <h4>Weeknight Noodle Bowls</h4>
@@ -72,7 +62,7 @@
                 <button class="subscribe-btn">Subscribe</button>
             </div>
 
-            <div class="service-card" data-id="plant-powered-bowls" data-tags="Vegan Mealkit">
+            <div class="service-card" data-id="plant-powered-bowls">
                 <img class="card-image" src="images/vegan-reset.jpg" alt="Plant-Powered Bowls">
                 <div class="card-body">
                     <h4>Plant-Powered Bowls</h4>
@@ -86,7 +76,7 @@
                 <button class="subscribe-btn">Subscribe</button>
             </div>
 
-            <div class="service-card" data-id="carnivore-reset" data-tags="Carnivore Mealplan">
+            <div class="service-card" data-id="carnivore-reset">
                 <img class="card-image" src="images/high-protein.jpg" alt="Carnivore Reset Plan">
                 <div class="card-body">
                     <h4>Carnivore Reset Plan</h4>
@@ -100,7 +90,7 @@
                 <button class="subscribe-btn">Subscribe</button>
             </div>
 
-            <div class="service-card" data-id="5-ingredient-dinners" data-tags="Recipe">
+            <div class="service-card" data-id="5-ingredient-dinners">
                 <img class="card-image" src="images/noodle-bowls.jpg" alt="5-Ingredient Dinners">
                 <div class="card-body">
                     <h4>5-Ingredient Dinners</h4>
@@ -114,35 +104,12 @@
             </div>
         </div>
 
-        <p class="no-results" hidden>No mealkits match this filter yet.</p>
+        <p class="no-subscriptions">You haven't subscribed to any meal plans yet. <a href="customer-dashboard.html">Browse plans</a></p>
     </div>
 
     <script src="subscriptions.js"></script>
     <script>
-        initSubscribeButtons();
-
-        const filterTags = document.querySelectorAll('.filter-tags .tag-pill');
-        const cards = document.querySelectorAll('.service-card');
-        const noResults = document.querySelector('.no-results');
-
-        filterTags.forEach(tag => {
-            tag.addEventListener('click', () => {
-                filterTags.forEach(t => t.classList.remove('active'));
-                tag.classList.add('active');
-
-                const filter = tag.dataset.filter;
-                let visibleCount = 0;
-
-                cards.forEach(card => {
-                    const tags = card.dataset.tags.split(' ');
-                    const matches = filter === 'All' || tags.includes(filter);
-                    card.hidden = !matches;
-                    if (matches) visibleCount++;
-                });
-
-                noResults.hidden = visibleCount > 0;
-            });
-        });
+        initSubscribeButtons({ hideUnsubscribed: true });
     </script>
 </body>
 </html>

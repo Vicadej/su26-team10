@@ -204,10 +204,15 @@ body {
     gap: 20px;
 }
 
-.no-results {
+.no-results,
+.no-subscriptions {
     text-align: center;
     color: #666666;
     margin-top: 40px;
+}
+
+.no-subscriptions a {
+    color: #2e6ab5;
 }
 
 .service-card {
