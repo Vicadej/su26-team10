@@ -12,13 +12,14 @@
         <div class="nav-links">
             <a href="customer-dashboard.html">Browse</a>
             <a href="customer-subscriptions.html">My Subscriptions</a>
-            <a href="#">Profile</a>
+            <a href="customer-profile.html">Profile</a>
+            <a href="customer-reviews.html">Reviews</a>
             <a href="index.html">Log Out</a>
         </div>
     </nav>
 
     <div class="dashboard-container">
-        <h3>Welcome back, Lebron!</h3>
+        <h3>Welcome back!!</h3>
         
 
         <div class="filter-tags">
@@ -28,10 +29,12 @@
             <span class="tag-pill" data-filter="Mealkit">Mealkit</span>
             <span class="tag-pill" data-filter="Recipe">Recipe</span>
             <span class="tag-pill" data-filter="Mealplan">Mealplan</span>
+            <span class="tag-pill" data-filter="under20">&lt; $20</span>
+            <span class="tag-pill" data-filter="over20">&gt; $20</span>
         </div>
 
         <div class="card-grid">
-            <div class="service-card" data-id="vegan-reset" data-tags="Vegan Mealplan">
+            <div class="service-card" data-id="vegan-reset" data-tags="Vegan Mealplan" data-price="19.99">
                 <img class="card-image" src="images/vegan-reset.jpg" alt="7-Day Vegan Reset">
                 <div class="card-body">
                     <h4>7-Day Vegan Reset</h4>
@@ -40,12 +43,13 @@
                         <span class="tag-pill small">Vegan</span>
                         <span class="tag-pill small">Mealplan</span>
                     </div>
+                    <p class="price">$19.99/week</p>
                     <p class="rating">4.8 (120 reviews)</p>
                 </div>
                 <button class="subscribe-btn">Subscribe</button>
             </div>
 
-            <div class="service-card" data-id="high-protein-mealkit" data-tags="Carnivore Mealkit">
+            <div class="service-card" data-id="high-protein-mealkit" data-tags="Carnivore Mealkit" data-price="24.99">
                 <img class="card-image" src="images/high-protein.jpg" alt="High-Protein Mealkit">
                 <div class="card-body">
                     <h4>High-Protein Mealkit</h4>
@@ -54,12 +58,13 @@
                         <span class="tag-pill small">Carnivore</span>
                         <span class="tag-pill small">Mealkit</span>
                     </div>
+                    <p class="price">$24.99/week</p>
                     <p class="rating">4.6 (85 reviews)</p>
                 </div>
                 <button class="subscribe-btn">Subscribe</button>
             </div>
 
-            <div class="service-card" data-id="noodle-bowls" data-tags="Recipe">
+            <div class="service-card" data-id="noodle-bowls" data-tags="Recipe" data-price="15.99">
                 <img class="card-image" src="images/noodle-bowls.jpg" alt="Weeknight Noodle Bowls">
                 <div class="card-body">
                     <h4>Weeknight Noodle Bowls</h4>
@@ -67,12 +72,13 @@
                     <div class="card-tags">
                         <span class="tag-pill small">Recipe</span>
                     </div>
+                    <p class="price">$15.99/week</p>
                     <p class="rating">4.9 (210 reviews)</p>
                 </div>
                 <button class="subscribe-btn">Subscribe</button>
             </div>
 
-            <div class="service-card" data-id="plant-powered-bowls" data-tags="Vegan Mealkit">
+            <div class="service-card" data-id="plant-powered-bowls" data-tags="Vegan Mealkit" data-price="22.99">
                 <img class="card-image" src="images/vegan-reset.jpg" alt="Plant-Powered Bowls">
                 <div class="card-body">
                     <h4>Plant-Powered Bowls</h4>
@@ -81,12 +87,13 @@
                         <span class="tag-pill small">Vegan</span>
                         <span class="tag-pill small">Mealkit</span>
                     </div>
+                    <p class="price">$22.99/week</p>
                     <p class="rating">4.7 (64 reviews)</p>
                 </div>
                 <button class="subscribe-btn">Subscribe</button>
             </div>
 
-            <div class="service-card" data-id="carnivore-reset" data-tags="Carnivore Mealplan">
+            <div class="service-card" data-id="carnivore-reset" data-tags="Carnivore Mealplan" data-price="29.99">
                 <img class="card-image" src="images/high-protein.jpg" alt="Carnivore Reset Plan">
                 <div class="card-body">
                     <h4>Carnivore Reset Plan</h4>
@@ -95,12 +102,13 @@
                         <span class="tag-pill small">Carnivore</span>
                         <span class="tag-pill small">Mealplan</span>
                     </div>
+                    <p class="price">$29.99/week</p>
                     <p class="rating">4.5 (47 reviews)</p>
                 </div>
                 <button class="subscribe-btn">Subscribe</button>
             </div>
 
-            <div class="service-card" data-id="5-ingredient-dinners" data-tags="Recipe">
+            <div class="service-card" data-id="5-ingredient-dinners" data-tags="Recipe" data-price="17.99">
                 <img class="card-image" src="images/noodle-bowls.jpg" alt="5-Ingredient Dinners">
                 <div class="card-body">
                     <h4>5-Ingredient Dinners</h4>
@@ -108,6 +116,7 @@
                     <div class="card-tags">
                         <span class="tag-pill small">Recipe</span>
                     </div>
+                    <p class="price">$17.99/week</p>
                     <p class="rating">4.8 (98 reviews)</p>
                 </div>
                 <button class="subscribe-btn">Subscribe</button>
@@ -134,8 +143,13 @@
                 let visibleCount = 0;
 
                 cards.forEach(card => {
-                    const tags = card.dataset.tags.split(' ');
-                    const matches = filter === 'All' || tags.includes(filter);
+                    const price = parseFloat(card.dataset.price);
+                    let matches;
+                    if (filter === 'All') matches = true;
+                    else if (filter === 'under20') matches = price < 20;
+                    else if (filter === 'over20') matches = price > 20;
+                    else matches = card.dataset.tags.split(' ').includes(filter);
+
                     card.hidden = !matches;
                     if (matches) visibleCount++;
                 });
