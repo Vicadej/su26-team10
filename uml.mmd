@@ -1,0 +1,104 @@
+classDiagram
+    class Provider {
+        -providerId: Long
+        -name: String
+        -email: String
+        -passwordHash: String
+        -bio: String
+        -specialties: List~String~
+        -verified: Boolean
+        +createProfile()
+        +publishRecipe(recipe: Recipe)
+        +publishMealplan(plan: Mealplan)
+        +publishMealkit(kit: Mealkit)
+        +viewStatistics() Statistics
+        +replyToReview(review: Review, reply: String)
+    }
+
+    class Customer {
+        -customerId: Long
+        -name: String
+        -email: String
+        -passwordHash: String
+        -dietaryPreferences: List~String~
+        +createProfile()
+        +browseServices(tag: String) List
+        +subscribe(kit: Mealkit)
+        +writeReview(target, rating: Integer, comment: String) Review
+    }
+
+    class Recipe {
+        -recipeId: Long
+        -title: String
+        -ingredients: List~String~
+        -instructions: String
+        -tags: List~String~
+        -price: Double
+        +getDetails()
+    }
+
+    class Mealplan {
+        -mealplanId: Long
+        -title: String
+        -duration: String
+        -tags: List~String~
+        -price: Double
+        +addRecipe(recipe: Recipe)
+        +getSchedule()
+    }
+
+    class Mealkit {
+        -mealkitId: Long
+        -title: String
+        -deliveryFrequency: String
+        -tags: List~String~
+        -price: Double
+        +addSubscriber(customer: Customer)
+        +getStats() Statistics
+    }
+
+    class Review {
+        -reviewId: Long
+        -rating: Integer
+        -comment: String
+        -providerReply: String
+        -createdAt: Date
+        +submit()
+        +addProviderReply(reply: String)
+    }
+
+    class Subscription {
+        -sub_id: Long
+        -customer_id: Long
+        -mealkit_id: Long
+        +subscribe()
+        +cancel()
+    }
+
+    class Save {
+        -save_id: Long
+        -customer_id: Long
+        -recipe_id: Long
+        -mealplan_id: Long
+        +save()
+        +remove()
+    }
+
+    Provider "1" --> "0..*" Recipe : publishes
+    Provider "1" --> "0..*" Mealplan : publishes
+    Provider "1" --> "0..*" Mealkit : publishes
+
+    Mealplan "1" o-- "1..*" Recipe : includes
+    Mealkit "1" o-- "1..*" Recipe : presets
+
+    Customer "1" --> "0..*" Review : writes
+    Customer "1" --> "0..*" Subscription : has
+    Subscription "0..*" --> "1" Mealkit : for
+
+    Customer "1" --> "0..*" Save : has
+    Save "0..*" --> "0..1" Recipe : saves
+    Save "0..*" --> "0..1" Mealplan : saves
+
+    Review "0..*" --> "0..1" Recipe : reviews
+    Review "0..*" --> "0..1" Mealplan : reviews
+    Review "0..*" --> "0..1" Mealkit : reviews
