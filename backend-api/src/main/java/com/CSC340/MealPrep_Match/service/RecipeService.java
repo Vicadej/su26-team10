@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.CSC340.MealPrep_Match.model.Recipe;
+import com.CSC340.MealPrep_Match.entity.Recipe;
 import com.CSC340.MealPrep_Match.repository.RecipeRepository;
 
 @Service

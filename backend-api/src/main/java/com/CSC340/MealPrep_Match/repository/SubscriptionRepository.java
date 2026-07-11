@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.CSC340.MealPrep_Match.model.Subscription;
+import com.CSC340.MealPrep_Match.entity.Subscription;
 
 public interface SubscriptionRepository extends JpaRepository<Subscription, Long> {
 

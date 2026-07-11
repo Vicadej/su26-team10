@@ -1,7 +1,8 @@
-package com.CSC340.MealPrep_Match.model;
+package com.CSC340.MealPrep_Match.entity;
 
 import java.time.Instant;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,17 +17,25 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "subscriptions")
+@Table(name = "reviews")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Subscription {
+public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long subscriptionId;
+    private Long reviewId;
+
+    @Column(nullable = false)
+    private Integer rating;
+
+    @Column(length = 2000)
+    private String comment;
+
+    private Instant createdAt;
 
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
@@ -35,6 +44,4 @@ public class Subscription {
     @ManyToOne
     @JoinColumn(name = "recipe_id", nullable = false)
     private Recipe recipe;
-
-    private Instant subscribedAt;
 }
