@@ -43,6 +43,7 @@ classDiagram
         -duration: String
         -tags: List~String~
         -price: Double
+        -description: String
         +addRecipe(recipe: Recipe)
         +getSchedule()
     }
@@ -53,6 +54,7 @@ classDiagram
         -deliveryFrequency: String
         -tags: List~String~
         -price: Double
+        -description: String
         +addSubscriber(customer: Customer)
         +getStats() Statistics
     }
