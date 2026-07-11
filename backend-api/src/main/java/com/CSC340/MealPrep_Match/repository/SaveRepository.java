@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.CSC340.MealPrep_Match.model.Save;
+import com.CSC340.MealPrep_Match.entity.Save;
 
 public interface SaveRepository extends JpaRepository<Save, Long> {
 

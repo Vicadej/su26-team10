@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.CSC340.MealPrep_Match.model.Recipe;
+import com.CSC340.MealPrep_Match.entity.Recipe;
 
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 

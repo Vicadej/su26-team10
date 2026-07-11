@@ -1,4 +1,4 @@
-package com.CSC340.MealPrep_Match.model;
+package com.CSC340.MealPrep_Match.entity;
 
 import java.time.Instant;
 
@@ -16,17 +16,17 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "saves")
+@Table(name = "subscriptions")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Save {
+public class Subscription {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long saveId;
+    private Long subscriptionId;
 
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
@@ -36,5 +36,5 @@ public class Save {
     @JoinColumn(name = "recipe_id", nullable = false)
     private Recipe recipe;
 
-    private Instant savedAt;
+    private Instant subscribedAt;
 }

@@ -1,4 +1,4 @@
-package com.CSC340.MealPrep_Match.model;
+package com.CSC340.MealPrep_Match.entity;
 
 import java.util.List;
 
