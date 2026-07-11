@@ -13,6 +13,7 @@ import com.CSC340.MealPrep_Match.model.Review;
 import com.CSC340.MealPrep_Match.repository.CustomerRepository;
 import com.CSC340.MealPrep_Match.repository.RecipeRepository;
 import com.CSC340.MealPrep_Match.repository.ReviewRepository;
+import com.CSC340.MealPrep_Match.repository.SubscriptionRepository;
 
 @Service
 public class ReviewService {
@@ -20,12 +21,14 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final CustomerRepository customerRepository;
     private final RecipeRepository recipeRepository;
+    private final SubscriptionRepository subscriptionRepository;
 
     public ReviewService(ReviewRepository reviewRepository, CustomerRepository customerRepository,
-            RecipeRepository recipeRepository) {
+            RecipeRepository recipeRepository, SubscriptionRepository subscriptionRepository) {
         this.reviewRepository = reviewRepository;
         this.customerRepository = customerRepository;
         this.recipeRepository = recipeRepository;
+        this.subscriptionRepository = subscriptionRepository;
     }
 
     public List<Review> getAll() {
@@ -59,6 +62,12 @@ public class ReviewService {
         Recipe recipe = recipeRepository.findById(review.getRecipe().getRecipeId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "Recipe not found: " + review.getRecipe().getRecipeId()));
+
+        if (!subscriptionRepository.existsByCustomer_CustomerIdAndRecipe_RecipeId(customer.getCustomerId(),
+                recipe.getRecipeId())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                    "Customer must be subscribed to this recipe before reviewing it");
+        }
 
         review.setCustomer(customer);
         review.setRecipe(recipe);
