@@ -11,6 +11,6 @@ public interface MealkitRepository extends JpaRepository<Mealkit, Long>{
 
     List<Mealkit> findByCategoryContainingIgnoreCase(String category);
 
-    List<Mealkit> findByTitleContainingIgnoreCaseOrDesriptionContainingIgnoreCase(String titleQuery, String descriptionQuery);
+    List<Mealkit> findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCase(String titleQuery, String descriptionQuery);
     
 }

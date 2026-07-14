@@ -11,8 +11,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -45,7 +46,13 @@ public class Mealkit {
 
     private String category;
 
-    @OneToOne(mappedBy = "mealkit")
+    private Double price;
+
+    @ManyToMany
+    @JoinTable(
+            name = "mealkit_mealplan",
+            joinColumns = @JoinColumn(name = "mealkit_id"),
+            inverseJoinColumns = @JoinColumn(name = "mealplan_id"))
     @JsonIgnore
     private List<Mealplan> mealplan;
 

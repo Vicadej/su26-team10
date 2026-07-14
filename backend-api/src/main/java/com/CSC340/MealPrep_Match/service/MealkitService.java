@@ -53,7 +53,7 @@ public class MealkitService {
         }
 
         public List<Mealkit> searchMealkitsByTitle(String query) {
-            return mealkitRepository.findByTitleContainingIgnoreCaseOrDesriptionContainingIgnoreCase(query, query);
+            return mealkitRepository.findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCase(query, query);
         }
 }
 

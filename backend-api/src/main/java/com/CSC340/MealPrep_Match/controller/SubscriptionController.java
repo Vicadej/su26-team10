@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.CSC340.MealPrep_Match.model.Subscription;
+import com.CSC340.MealPrep_Match.entity.Subscription;
 import com.CSC340.MealPrep_Match.service.SubscriptionService;
 
 @RestController

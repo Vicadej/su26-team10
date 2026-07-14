@@ -1,5 +1,7 @@
 package com.CSC340.MealPrep_Match.entity;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -9,8 +11,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -42,17 +45,27 @@ public class Mealplan {
     private String description;
 
     private String category;
+    private Double price;
 
-    /* 
-    @OneToMany(mappedBy = "mealplan")
+    
+    @ManyToMany
+    @JoinTable(
+            name = "mealplan_recipe",
+            joinColumns = @JoinColumn(name = "mealplan_id"),
+            inverseJoinColumns = @JoinColumn(name = "recipe_id"))
     @JsonIgnore
     private List<Recipe> recipe;
-    */
 
-    public Mealplan(Provider provider, String title, String duration, String description, String category) {
+    @ManyToMany(mappedBy = "mealplan")
+    @JsonIgnore
+    private List<Mealkit> mealkit;
+
+
+    public Mealplan(Provider provider, String title, String duration, String description, String category, Double price) {
         this.provider = provider;
         this.title = title;
         this.duration = duration;
         this.category = category;
+        this.price = price;
     }
 }

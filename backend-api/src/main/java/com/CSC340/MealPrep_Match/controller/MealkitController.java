@@ -2,7 +2,6 @@ package com.CSC340.MealPrep_Match.controller;
 
 import java.util.List;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.CSC340.MealPrep_Match.entity.Mealkit;
-import com.CSC340.MealPrep_Match.entity.Mealplan;
 import com.CSC340.MealPrep_Match.service.MealkitService;
 
 @RestController

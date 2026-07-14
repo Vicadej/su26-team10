@@ -1,6 +1,9 @@
-package com.CSC340.MealPrep_Match.model;
+package com.CSC340.MealPrep_Match.entity;
 
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -10,6 +13,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -46,5 +51,18 @@ public class Recipe {
     @Column(name = "tag")
     private List<String> tags;
 
-    private Double price;
+    @ManyToOne
+    @JsonIgnoreProperties({ "recipe" })
+    @JoinColumn
+    private Provider provider;
+
+    @ManyToMany(mappedBy = "recipe")
+    @JsonIgnore
+    private List<Mealplan> mealplan;
+
+    public Recipe(String title, List<String> ingredients, String instructions, List<String> tags) {
+        this.title = title;
+        this.ingredients = ingredients;
+        this.tags = tags;
+    }
 }

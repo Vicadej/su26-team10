@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.CSC340.MealPrep_Match.model.Customer;
+import com.CSC340.MealPrep_Match.entity.Customer;
 import com.CSC340.MealPrep_Match.repository.CustomerRepository;
 
 @Service
