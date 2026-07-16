@@ -93,7 +93,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
   Scenario: Provider registers and adds tags
     Given I am on the registration page and select the Provider role
     When  I fill in my profile details and select tags (e.g., vegan, mealprep)
-    Then  my profile is submitted for verification and my content is queued until approved
+    Then  my profile is submitted for verification
   ```
 
 - **US-21 — Publish a Service**  
@@ -113,7 +113,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
   Scenario: Provider views dashboard stats
     Given I have at least one published service with customer interactions
     When  I open my provider dashboard
-    Then  I see active subscriber count, average rating, and VTS ratio for each service
+    Then  I see active subscriber count, average rating, and total content saved
   ```
 
 - **US-23 — Reply to a Review**  
@@ -123,7 +123,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
   Scenario: Provider replies to a review
     Given a customer has posted a review on one of my services
     When  I navigate to that review and submit a reply
-    Then  my reply is displayed beneath the customer's review and the customer is notified
+    Then  my reply is displayed beneath the customer's review
   ```
 
 ### 2.3 SysAdmin Stories
