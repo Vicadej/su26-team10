@@ -28,9 +28,12 @@ public class ProviderController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Provider> getProviderById(@PathVariable long id) {
-        return providerService.findById(id)
-            .map(ResponseEntity::ok)
-            .orElse(ResponseEntity.notFound().build());
+        Provider provider = providerService.findById(id);
+        if (provider != null) {
+            return ResponseEntity.ok(provider);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping

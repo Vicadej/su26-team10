@@ -14,4 +14,6 @@ public interface SubscriptionRepository extends JpaRepository<Subscription, Long
     Optional<Subscription> findByCustomer_CustomerIdAndRecipe_RecipeId(Long customerId, Long recipeId);
 
     boolean existsByCustomer_CustomerIdAndRecipe_RecipeId(Long customerId, Long recipeId);
+
+    List<Subscription> findByRecipe_Provider_Id(Long providerId);
 }
