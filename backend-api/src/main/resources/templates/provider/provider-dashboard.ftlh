@@ -9,7 +9,7 @@
 <body class="dashboard">
     <nav class="nav">
         <a href="/provider/dashboard"><button>Dashboard</button></a>
-        <a href="#"><button>Uploads</button></a>
+        <a href="/provider/uploads"><button>Uploads</button></a>
         <a href="/provider/profile"><button>Profile</button></a>
         <a href="/provider/login"><button>Log Out</button></a>
     </nav>
@@ -17,7 +17,7 @@
     <main class="main">
         <div class="header-bar">
             <h1>Dashboard</h1>
-            <button class="create-btn">Create</button>
+            <a href="/provider/uploads"><button class="create-btn">Create</button></a>
         </div>
 
         <div class="stats-section">
@@ -50,7 +50,7 @@
                 <h4>Recent Uploads</h4>
                 <div class="panel">
                     <div class="panel-head">
-                        <button>View All</button>
+                        <a href="/provider/uploads"><button>View All</button></a>
                     </div>
                     <div class="upload-list">
                         <#if recentUploads?has_content>

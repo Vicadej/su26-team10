@@ -2,8 +2,6 @@ package com.CSC340.MealPrep_Match.entity;
 
 import java.time.Instant;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -46,11 +44,6 @@ public class Review {
     @ManyToOne
     @JoinColumn(name = "recipe_id", nullable = false)
     private Recipe recipe;
-
-    @ManyToOne
-    @JsonIgnoreProperties({ "review" })
-    @JoinColumn(name = "provider_id")
-    private Provider provider;
 
     public Review(Integer rating, String comment, Instant createdAt, Customer customer, Recipe recipe) {
         this.rating = rating;

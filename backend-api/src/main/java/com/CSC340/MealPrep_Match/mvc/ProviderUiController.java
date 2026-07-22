@@ -2,6 +2,8 @@ package com.CSC340.MealPrep_Match.mvc;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +21,9 @@ import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBo
 
 import com.CSC340.MealPrep_Match.entity.Provider;
 import com.CSC340.MealPrep_Match.entity.Customer;
+import com.CSC340.MealPrep_Match.entity.Mealkit;
 import com.CSC340.MealPrep_Match.entity.Mealplan;
+import com.CSC340.MealPrep_Match.entity.Recipe;
 import com.CSC340.MealPrep_Match.service.CustomerService;
 import com.CSC340.MealPrep_Match.service.MealkitService;
 import com.CSC340.MealPrep_Match.service.MealplanService;
@@ -83,7 +87,7 @@ public class ProviderUiController {
     @PostMapping("/login")
     public String login(HttpSession session, @RequestParam String email, @RequestParam String password) {
         Provider provider = providerService.findByEmail(email);
-        if (provider != null && password.equals(provider.getPassword())) {
+        if (provider != null && providerService.checkPassword(provider, password)) {
             session.setAttribute("providerId", provider.getId());
             return "redirect:/provider/dashboard";
         }
@@ -165,6 +169,86 @@ public class ProviderUiController {
         };
 
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(stream);
+    }
+
+    @GetMapping("/uploads")
+    public String uploads(HttpSession session, Model model) {
+        Long providerId = (Long) session.getAttribute("providerId");
+        if (providerId == null) {
+            return "redirect:/provider/login";
+        }
+
+        Provider provider = providerService.findById(providerId);
+        model.addAttribute("provider", provider);
+        model.addAttribute("uploads", providerService.getAllUploads(providerId));
+
+        return "provider/provider-uploads";
+    }
+
+    @GetMapping("/uploads/create")
+    public String createUpload(HttpSession session) {
+        Long providerId = (Long) session.getAttribute("providerId");
+        if (providerId == null) {
+            return "redirect:/provider/login";
+        }
+        return "provider/provider-upload";
+    }
+
+    @PostMapping("/uploads/create/recipe")
+    public String createRecipe(HttpSession session, @RequestParam String title,
+            @RequestParam(required = false) String ingredients,
+            @RequestParam(required = false) String instructions,
+            @RequestParam(required = false) String tags) {
+        Long providerId = (Long) session.getAttribute("providerId");
+        if (providerId == null) {
+            return "redirect:/provider/login";
+        }
+
+        Recipe recipe = new Recipe();
+        recipe.setProvider(providerService.findById(providerId));
+        recipe.setTitle(title);
+        recipe.setInstructions(instructions);
+        recipe.setIngredients(splitCsv(ingredients));
+        recipe.setTags(splitCsv(tags));
+        recipeService.create(recipe);
+
+        return "redirect:/provider/uploads";
+    }
+
+    @PostMapping("/uploads/create/mealplan")
+    public String createMealplan(HttpSession session, Mealplan mealplan) {
+        Long providerId = (Long) session.getAttribute("providerId");
+        if (providerId == null) {
+            return "redirect:/provider/login";
+        }
+
+        mealplan.setProvider(providerService.findById(providerId));
+        mealplanService.createMealplan(mealplan);
+
+        return "redirect:/provider/uploads";
+    }
+
+    @PostMapping("/uploads/create/mealkit")
+    public String createMealkit(HttpSession session, Mealkit mealkit) {
+        Long providerId = (Long) session.getAttribute("providerId");
+        if (providerId == null) {
+            return "redirect:/provider/login";
+        }
+
+        mealkit.setProvider(providerService.findById(providerId));
+        mealkitService.createMealkit(mealkit);
+
+        return "redirect:/provider/uploads";
+    }
+
+    private List<String> splitCsv(String input) {
+        if (input == null || input.isBlank()) {
+            return List.of();
+        }
+        return Arrays.stream(input.split(","))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .toList();
     }
 
 }

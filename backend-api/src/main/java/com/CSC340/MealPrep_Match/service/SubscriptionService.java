@@ -7,11 +7,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.CSC340.MealPrep_Match.entity.Recipe;
+import com.CSC340.MealPrep_Match.entity.Mealkit;
+import com.CSC340.MealPrep_Match.entity.Mealplan;
 import com.CSC340.MealPrep_Match.entity.Customer;
 import com.CSC340.MealPrep_Match.entity.Subscription;
 import com.CSC340.MealPrep_Match.repository.CustomerRepository;
-import com.CSC340.MealPrep_Match.repository.RecipeRepository;
+import com.CSC340.MealPrep_Match.repository.MealkitRepository;
+import com.CSC340.MealPrep_Match.repository.MealplanRepository;
 import com.CSC340.MealPrep_Match.repository.SubscriptionRepository;
 
 @Service
@@ -19,13 +21,15 @@ public class SubscriptionService {
 
     private final SubscriptionRepository subscriptionRepository;
     private final CustomerRepository customerRepository;
-    private final RecipeRepository recipeRepository;
+    private final MealkitRepository mealkitRepository;
+    private final MealplanRepository mealplanRepository;
 
     public SubscriptionService(SubscriptionRepository subscriptionRepository, CustomerRepository customerRepository,
-            RecipeRepository recipeRepository) {
+            MealkitRepository mealkitRepository, MealplanRepository mealplanRepository) {
         this.subscriptionRepository = subscriptionRepository;
         this.customerRepository = customerRepository;
-        this.recipeRepository = recipeRepository;
+        this.mealkitRepository = mealkitRepository;
+        this.mealplanRepository = mealplanRepository;
     }
 
     public List<Subscription> getAll() {
@@ -46,25 +50,47 @@ public class SubscriptionService {
         if (subscription.getCustomer() == null || subscription.getCustomer().getCustomerId() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "customer.customerId is required");
         }
-        if (subscription.getRecipe() == null || subscription.getRecipe().getRecipeId() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "recipe.recipeId is required");
+
+        boolean hasKit = subscription.getMealkit() != null && subscription.getMealkit().getId() != null;
+        boolean hasPlan = subscription.getMealplan() != null && subscription.getMealplan().getId() != null;
+        if (hasKit == hasPlan) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "Provide exactly one of mealkit.id or mealplan.id");
         }
 
         Customer customer = customerRepository.findById(subscription.getCustomer().getCustomerId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "Customer not found: " + subscription.getCustomer().getCustomerId()));
-        Recipe recipe = recipeRepository.findById(subscription.getRecipe().getRecipeId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Recipe not found: " + subscription.getRecipe().getRecipeId()));
 
-        return subscriptionRepository.findByCustomer_CustomerIdAndRecipe_RecipeId(customer.getCustomerId(),
-                recipe.getRecipeId())
-                .orElseGet(() -> {
-                    subscription.setCustomer(customer);
-                    subscription.setRecipe(recipe);
-                    subscription.setSubscribedAt(Instant.now());
-                    return subscriptionRepository.save(subscription);
-                });
+        if (hasKit) {
+            Mealkit mealkit = mealkitRepository.findById(subscription.getMealkit().getId())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                            "Mealkit not found: " + subscription.getMealkit().getId()));
+
+            return subscriptionRepository
+                    .findByCustomer_CustomerIdAndMealkit_Id(customer.getCustomerId(), mealkit.getId())
+                    .orElseGet(() -> {
+                        subscription.setCustomer(customer);
+                        subscription.setMealkit(mealkit);
+                        subscription.setMealplan(null);
+                        subscription.setSubscribedAt(Instant.now());
+                        return subscriptionRepository.save(subscription);
+                    });
+        } else {
+            Mealplan mealplan = mealplanRepository.findById(subscription.getMealplan().getId())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                            "Mealplan not found: " + subscription.getMealplan().getId()));
+
+            return subscriptionRepository
+                    .findByCustomer_CustomerIdAndMealplan_Id(customer.getCustomerId(), mealplan.getId())
+                    .orElseGet(() -> {
+                        subscription.setCustomer(customer);
+                        subscription.setMealplan(mealplan);
+                        subscription.setMealkit(null);
+                        subscription.setSubscribedAt(Instant.now());
+                        return subscriptionRepository.save(subscription);
+                    });
+        }
     }
 
     public void delete(Long id) {

@@ -12,4 +12,5 @@ public class ProviderStats {
     private long subscriptionCount;
     private long contentCount;
     private long saveCount;
+    private double totalRevenue;
 }

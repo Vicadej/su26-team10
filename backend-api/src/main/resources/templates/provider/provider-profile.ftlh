@@ -9,7 +9,7 @@
 <body class="dashboard">
     <nav class="nav">
         <a href="/provider/dashboard"><button>Dashboard</button></a>
-        <a href="#"><button>Uploads</button></a>
+        <a href="/provider/uploads"><button>Uploads</button></a>
         <a href="/provider/profile"><button>Profile</button></a>
         <a href="/provider/login"><button>Log Out</button></a>
     </nav>

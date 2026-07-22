@@ -296,6 +296,78 @@ body.dashboard {
     color: #2e8b57;
 }
 
+/* Uploads page */
+.upload-list-full {
+    flex: 1;
+    max-height: none;
+    min-height: 0;
+}
+
+.upload-card {
+    padding: 16px 20px;
+}
+
+.upload-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.upload-type {
+    color: #2e8b57;
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.upload-card .upload-title {
+    max-width: 100%;
+    font-size: 16px;
+}
+
+.upload-card .tag-list {
+    flex: 1;
+    min-width: 0;
+    margin: 0 20px;
+    gap: 8px;
+}
+
+/* Upload create page */
+.type-picker {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.type-picker input[type="radio"] {
+    display: none;
+}
+
+.type-picker span {
+    display: inline-block;
+    padding: 8px 20px;
+    border: 1px solid #2e8b57;
+    border-radius: 20px;
+    color: #2e8b57;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.type-picker input[type="radio"]:checked + span {
+    background-color: #2e8b57;
+    color: #ffffff;
+}
+
+.main form .profile-section {
+    margin-bottom: 20px;
+}
+
+.main form .create-btn {
+    margin-top: 4px;
+}
+
 /* Profile page */
 .profile-header {
     display: flex;

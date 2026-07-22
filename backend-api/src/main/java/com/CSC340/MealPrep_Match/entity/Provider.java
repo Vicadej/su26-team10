@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.hibernate.annotations.JdbcTypeCode;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -17,6 +19,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -38,7 +41,12 @@ public class Provider {
     @Column(nullable = false, unique = true)
     private String email;
 
+    @JsonIgnore
     @Column(nullable = false)
+    private String passwordHash;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Transient
     private String password;
 
     @Lob
@@ -72,8 +80,4 @@ public class Provider {
     @JsonIgnoreProperties({ "provider" })
     private List<Mealkit> mealkit;
 
-    @OneToMany(mappedBy = "provider")
-    @JsonIgnoreProperties({ "provider" })
-    private List<Review> review;
-    
 }
