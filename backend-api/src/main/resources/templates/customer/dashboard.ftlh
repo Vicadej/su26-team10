@@ -39,7 +39,9 @@
                         </#if>
                     </div>
                     <#if recipe.subscribed()>
-                        <button class="subscribe-btn" disabled>Subscribed</button>
+                        <form method="post" action="/customer/${customerId}/unsubscribe/${recipe.id()?c}">
+                            <button type="submit" class="subscribe-btn subscribed">Unsubscribe</button>
+                        </form>
                     <#else>
                         <form method="post" action="/customer/${customerId}/subscribe/${recipe.id()?c}">
                             <button type="submit" class="subscribe-btn">Subscribe</button>

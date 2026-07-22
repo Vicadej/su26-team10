@@ -108,6 +108,12 @@ public class CustomerViewController {
         return "redirect:/customer/" + id + "/dashboard";
     }
 
+    @PostMapping("/{id}/unsubscribe/{recipeId}")
+    public String unsubscribe(@PathVariable Long id, @PathVariable Long recipeId) {
+        subscriptionService.deleteByCustomerAndRecipe(id, recipeId);
+        return "redirect:/customer/" + id + "/dashboard";
+    }
+
     @GetMapping("/{id}/profile")
     public String profile(@PathVariable Long id, Model model) {
         model.addAttribute("customer", customerService.getById(id));
