@@ -11,7 +11,15 @@ public interface SubscriptionRepository extends JpaRepository<Subscription, Long
 
     List<Subscription> findByCustomer_CustomerId(Long customerId);
 
-    Optional<Subscription> findByCustomer_CustomerIdAndRecipe_RecipeId(Long customerId, Long recipeId);
+    List<Subscription> findByMealkit_Provider_Id(Long providerId);
 
-    boolean existsByCustomer_CustomerIdAndRecipe_RecipeId(Long customerId, Long recipeId);
+    List<Subscription> findByMealplan_Provider_Id(Long providerId);
+
+    boolean existsByCustomer_CustomerIdAndMealkit_Id(Long customerId, Long mealkitId);
+
+    boolean existsByCustomer_CustomerIdAndMealplan_Id(Long customerId, Long mealplanId);
+
+    Optional<Subscription> findByCustomer_CustomerIdAndMealkit_Id(Long customerId, Long mealkitId);
+
+    Optional<Subscription> findByCustomer_CustomerIdAndMealplan_Id(Long customerId, Long mealplanId);
 }

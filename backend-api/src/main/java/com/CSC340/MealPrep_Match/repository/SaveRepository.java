@@ -12,4 +12,8 @@ public interface SaveRepository extends JpaRepository<Save, Long> {
     List<Save> findByCustomer_CustomerId(Long customerId);
 
     Optional<Save> findByCustomer_CustomerIdAndRecipe_RecipeId(Long customerId, Long recipeId);
+
+    boolean existsByCustomer_CustomerIdAndRecipe_RecipeId(Long customerId, Long recipeId);
+
+    List<Save> findByRecipe_Provider_Id(Long providerId);
 }

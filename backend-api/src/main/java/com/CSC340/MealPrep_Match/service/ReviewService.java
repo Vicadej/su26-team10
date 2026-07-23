@@ -13,7 +13,7 @@ import com.CSC340.MealPrep_Match.entity.Customer;
 import com.CSC340.MealPrep_Match.repository.CustomerRepository;
 import com.CSC340.MealPrep_Match.repository.RecipeRepository;
 import com.CSC340.MealPrep_Match.repository.ReviewRepository;
-import com.CSC340.MealPrep_Match.repository.SubscriptionRepository;
+import com.CSC340.MealPrep_Match.repository.SaveRepository;
 
 @Service
 public class ReviewService {
@@ -21,14 +21,14 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final CustomerRepository customerRepository;
     private final RecipeRepository recipeRepository;
-    private final SubscriptionRepository subscriptionRepository;
+    private final SaveRepository saveRepository;
 
     public ReviewService(ReviewRepository reviewRepository, CustomerRepository customerRepository,
-            RecipeRepository recipeRepository, SubscriptionRepository subscriptionRepository) {
+            RecipeRepository recipeRepository, SaveRepository saveRepository) {
         this.reviewRepository = reviewRepository;
         this.customerRepository = customerRepository;
         this.recipeRepository = recipeRepository;
-        this.subscriptionRepository = subscriptionRepository;
+        this.saveRepository = saveRepository;
     }
 
     public List<Review> getAll() {
@@ -63,10 +63,10 @@ public class ReviewService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "Recipe not found: " + review.getRecipe().getRecipeId()));
 
-        if (!subscriptionRepository.existsByCustomer_CustomerIdAndRecipe_RecipeId(customer.getCustomerId(),
+        if (!saveRepository.existsByCustomer_CustomerIdAndRecipe_RecipeId(customer.getCustomerId(),
                 recipe.getRecipeId())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN,
-                    "Customer must be subscribed to this recipe before reviewing it");
+                    "Customer must save this recipe before reviewing it");
         }
 
         review.setCustomer(customer);
@@ -83,6 +83,20 @@ public class ReviewService {
         if (updates.getComment() != null) {
             review.setComment(updates.getComment());
         }
+        return reviewRepository.save(review);
+    }
+
+    public Review reply(Long reviewId, Long providerId, String replyText) {
+        Review review = getById(reviewId);
+
+        Long ownerId = review.getRecipe().getProvider().getId();
+        if (!ownerId.equals(providerId)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                    "Only the provider of this recipe can reply to its reviews");
+        }
+
+        review.setProviderReply(replyText);
+        review.setRepliedAt(Instant.now());
         return reviewRepository.save(review);
     }
 

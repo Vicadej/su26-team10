@@ -38,7 +38,6 @@
   "ingredients": ["rice", "tofu"],
   "instructions": "mix it",
   "tags": ["vegan"],
-  "price": 9.99
 }
 ```
 
@@ -103,5 +102,79 @@ Lets a customer bookmark a recipe, separate from subscribing.
 {
   "customer": { "customerId": 1 },
   "recipe": { "recipeId": 1 }
+}
+```
+
+
+## Provider
+
+Providers are created through the UI, not the API — there is no POST endpoint.
+
+| GET | `/api/providers` | List all providers |
+| GET | `/api/providers/{id}` | Get one provider |
+| GET | `/api/providers/email/{email}` | Get a provider by email |
+| GET | `/api/providers/specialty?query={query}` | List providers matching a specialty |
+| PUT | `/api/providers/{id}` | Update a provider |
+| DELETE | `/api/providers/{id}` | Delete a provider |
+
+**Update body:**
+```json
+{
+  "name": "Chef Vic",
+  "email": "chef@test.com",
+  "password": "pass123",
+  "bio": "Plant-based meal prep specialist",
+  "specialties": "vegan",
+  "certified": true
+}
+```
+
+
+## Mealplan
+
+A mealplan belongs to a provider. There is no DELETE endpoint.
+
+| GET | `/api/mealplans` | List all mealplans |
+| GET | `/api/mealplans/{id}` | Get one mealplan |
+| GET | `/api/mealplans/provider/{providerId}` | List mealplans by a provider |
+| GET | `/api/mealplans/category/{category}` | List mealplans in a category |
+| GET | `/api/mealplans/search?query={query}` | Search mealplans by title |
+| POST | `/api/mealplans` | Create a mealplan |
+| PUT | `/api/mealplans/{id}` | Update a mealplan |
+
+**Create/Update body:**
+```json
+{
+  "provider": { "id": 1 },
+  "title": "7-Day Vegan Plan",
+  "duration": "7 days",
+  "description": "A week of plant-based meals",
+  "category": "vegan",
+  "price": 49.99
+}
+```
+
+
+## Mealkit
+
+A mealkit belongs to a provider. There is no DELETE endpoint.
+
+| GET | `/api/mealkits` | List all mealkits |
+| GET | `/api/mealkits/{id}` | Get one mealkit |
+| GET | `/api/mealkits/provider/{providerId}` | List mealkits by a provider |
+| GET | `/api/mealkits/category/{category}` | List mealkits in a category |
+| GET | `/api/mealkits/search?query={query}` | Search mealkits by title |
+| POST | `/api/mealkits` | Create a mealkit |
+| PUT | `/api/mealkits/{id}` | Update a mealkit |
+
+**Create/Update body:**
+```json
+{
+  "provider": { "id": 1 },
+  "title": "Vegan Starter Kit",
+  "deliveryFrequency": "weekly",
+  "description": "Everything you need for a week of vegan meals",
+  "category": "vegan",
+  "price": 39.99
 }
 ```

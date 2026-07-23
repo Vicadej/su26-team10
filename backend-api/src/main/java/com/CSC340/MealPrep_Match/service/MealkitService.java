@@ -43,6 +43,9 @@ public class MealkitService {
                     mealkit.setDeliveryFrequency(updatedMealkit.getDeliveryFrequency());
                     mealkit.setDescription(updatedMealkit.getDescription());
                     mealkit.setCategory(updatedMealkit.getCategory());
+                    if (updatedMealkit.getPrice() != null) {
+                        mealkit.setPrice(updatedMealkit.getPrice());
+                    }
                     return mealkitRepository.save(mealkit);
                 })
                 .orElseThrow(() -> new RuntimeException("Mealkit not found with id: " + id));

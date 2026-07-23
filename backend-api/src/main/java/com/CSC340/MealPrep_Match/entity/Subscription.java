@@ -33,14 +33,19 @@ public class Subscription {
     private Customer customer;
 
     @ManyToOne
-    @JoinColumn(name = "recipe_id", nullable = false)
-    private Recipe recipe;
+    @JoinColumn(name = "mealkit_id")
+    private Mealkit mealkit;
+
+    @ManyToOne
+    @JoinColumn(name = "mealplan_id")
+    private Mealplan mealplan;
 
     private Instant subscribedAt;
 
-    public Subscription(Customer customer, Recipe recipe, Instant subscribedAt) {
+    public Subscription(Customer customer, Mealkit mealkit, Mealplan mealplan, Instant subscribedAt) {
         this.customer = customer;
-        this.recipe = recipe;
+        this.mealkit = mealkit;
+        this.mealplan = mealplan;
         this.subscribedAt = subscribedAt;
     }
 }
