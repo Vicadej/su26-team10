@@ -99,4 +99,12 @@ public class SubscriptionService {
         }
         subscriptionRepository.deleteById(id);
     }
+
+    public void deleteByCustomerAndRecipe(Long customerId, Long recipeId) {
+        Subscription subscription = subscriptionRepository
+                .findByCustomer_CustomerIdAndRecipe_RecipeId(customerId, recipeId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Subscription not found for customer " + customerId + " and recipe " + recipeId));
+        subscriptionRepository.delete(subscription);
+    }
 }
