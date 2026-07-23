@@ -14,9 +14,13 @@
 
         <div class="filter-tags">
             <span class="tag-pill active" data-filter="All">All</span>
+            <#assign seenTags = []>
             <#list recipes as recipe>
                 <#list recipe.tags() as tag>
-                    <span class="tag-pill" data-filter="${tag}">${tag}</span>
+                    <#if !seenTags?seq_contains(tag?lower_case)>
+                        <#assign seenTags = seenTags + [tag?lower_case]>
+                        <span class="tag-pill" data-filter="${tag}">${tag}</span>
+                    </#if>
                 </#list>
             </#list>
         </div>
@@ -71,7 +75,8 @@
                 let visibleCount = 0;
 
                 cards.forEach(card => {
-                    const matches = filter === 'All' || card.dataset.tags.split(' ').includes(filter);
+                    const matches = filter === 'All'
+                        || card.dataset.tags.toLowerCase().split(' ').includes(filter.toLowerCase());
                     card.hidden = !matches;
                     if (matches) visibleCount++;
                 });
