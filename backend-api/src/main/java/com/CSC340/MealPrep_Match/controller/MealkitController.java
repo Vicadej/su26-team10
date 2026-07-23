@@ -39,13 +39,13 @@ public class MealkitController {
         return ResponseEntity.ok(mealkit);
     }
 
-    @GetMapping("/provider/providerId")
+    @GetMapping("/provider/{providerId}")
     public ResponseEntity<List<Mealkit>> getMealkitByProviderId(@PathVariable Long providerId) {
         List<Mealkit> mealkits = mealkitService.getMealkitByProviderId(providerId);
         return ResponseEntity.ok(mealkits); 
     }
 
-    @GetMapping("/catgory/{category}")
+    @GetMapping("/category/{category}")
     public ResponseEntity<List<Mealkit>> getMealkitsByCategory(@PathVariable String category) {
         List<Mealkit> mealkits = mealkitService.getMealkitsByCategory(category);
         return ResponseEntity.ok(mealkits);

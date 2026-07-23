@@ -37,6 +37,11 @@ public class Review {
 
     private Instant createdAt;
 
+    @Column(length = 2000)
+    private String providerReply;
+
+    private Instant repliedAt;
+
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;

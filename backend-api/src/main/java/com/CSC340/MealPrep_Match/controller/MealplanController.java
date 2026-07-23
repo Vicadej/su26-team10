@@ -39,7 +39,7 @@ public class MealplanController {
         return ResponseEntity.ok(mealplan);
     }
 
-    @GetMapping("/provider/providerId")
+    @GetMapping("/provider/{providerId}")
     public ResponseEntity<List<Mealplan>> getMealplansByProviderId(@PathVariable Long providerId) {
         List<Mealplan> mealplans = mealplanService.getMealplansByProviderId(providerId);
         return ResponseEntity.ok(mealplans);

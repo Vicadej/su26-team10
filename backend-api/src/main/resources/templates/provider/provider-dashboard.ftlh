@@ -80,7 +80,7 @@
                             <#list recentReviews as review>
                                 <div class="upload-item">
                                     <p>${review.rating}/5 - ${review.comment!''}</p>
-                                    <a href="#review-modal"><button>view</button></a>
+                                    <a href="#review-modal-${review.reviewId}"><button>view</button></a>
                                 </div>
                             </#list>
                         <#else>
@@ -115,23 +115,31 @@
         </div>
     </main>
 
-    <!-- Review reply modal -->
-    <div class="modal" id="review-modal">
-        <a href="#" class="modal-backdrop"></a>
-        <div class="modal-card">
-            <a href="#" class="modal-close">&times;</a>
-            <div class="rating">
-                <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-                <span class="rating-value">5 / 5</span>
+    <!-- Review reply modals -->
+    <#if recentReviews?has_content>
+        <#list recentReviews as review>
+            <div class="modal" id="review-modal-${review.reviewId}">
+                <a href="#" class="modal-backdrop"></a>
+                <div class="modal-card">
+                    <a href="#" class="modal-close">&times;</a>
+                    <div class="rating">
+                        <span class="stars"><#list 1..review.rating as star>&#9733;</#list></span>
+                        <span class="rating-value">${review.rating} / 5</span>
+                    </div>
+                    <p class="review-text">${review.comment!''}</p>
+                    <form method="post" action="/provider/reviews/${review.reviewId}/reply">
+                        <label for="reply-${review.reviewId}">Reply</label>
+                        <textarea class="profile-input reply-box" id="reply-${review.reviewId}"
+                                  name="reply" rows="4"
+                                  placeholder="Write a reply...">${review.providerReply!''}</textarea>
+                        <div class="modal-actions">
+                            <a href="#" class="modal-cancel">Cancel</a>
+                            <button type="submit" class="edit-btn">Send</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <p class="review-text">would recommend</p>
-            <label for="reply">Reply</label>
-            <textarea class="profile-input reply-box" id="reply" rows="4" placeholder="Write a reply..."></textarea>
-            <div class="modal-actions">
-                <a href="#" class="modal-cancel">Cancel</a>
-                <button class="edit-btn">Send</button>
-            </div>
-        </div>
-    </div>
+        </#list>
+    </#if>
 </body>
 </html>

@@ -241,6 +241,17 @@ public class ProviderUiController {
         return "redirect:/provider/uploads";
     }
 
+    @PostMapping("/reviews/{reviewId}/reply")
+    public String replyToReview(HttpSession session, @PathVariable Long reviewId,
+            @RequestParam String reply) {
+        Long providerId = (Long) session.getAttribute("providerId");
+        if (providerId == null) {
+            return "redirect:/provider/login";
+        }
+        reviewService.reply(reviewId, providerId, reply);
+        return "redirect:/provider/dashboard";
+    }
+
     private List<String> splitCsv(String input) {
         if (input == null || input.isBlank()) {
             return List.of();

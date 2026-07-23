@@ -4,8 +4,8 @@
 **Project Name:** MealPrep Match \
 **Team:** Cameron - Provider, Victor - Customer \
 **Course:** CSC 340\
-**Version:** 1.0\
-**Date:** 2026-06-25
+**Version:** 2.0\
+**Date:** 2026-07-23
 
 ---
 
@@ -15,7 +15,7 @@
 **Glossary** Terms used in the project
 - **Provider:** Anyone who wants to upload recipes, mealplans or mealkits.
 - **Customer:** A person seeking structure and or guidance in food habits and meals.
-- **Profile:** Informations about a user or provider including personal details, preferences, account info
+- **Profile:** Information about a user or provider including personal details, preferences, account info
 - **Subscription(s):** A specific piece of content provided by a verified provider. Specifically for ordering mealkits
 - **Recipe:** A set of instructions and a list of required ingredients to make a meal
 - **Mealplan:** A list of meals/recipes to make for a set amount of times(a day, a week, a month).
@@ -24,7 +24,6 @@
 **Primary Users / Roles.**
 - **Customer (e.g., Student/Patient/Pet Owner/etc. )** — Find good recipes or stable meal plans.
 - **Provider (e.g., Teacher/Doctor/Pet Sitter/etc. )** — Attract customers and manage subscriptions.
-- **SysAdmin (optional)** — 1 line goal statement.
 
 **Scope (this semester).**
 - Customer & Provider profiles
@@ -93,7 +92,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
   Scenario: Provider registers and adds tags
     Given I am on the registration page and select the Provider role
     When  I fill in my profile details and select tags (e.g., vegan, mealprep)
-    Then  my profile is submitted for verification and my content is queued until approved
+    Then  my profile can be used for customers to find my content related to my tags.
   ```
 
 - **US-21 — Publish a Service**  
@@ -102,18 +101,18 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
   ```gherkin
   Scenario: Provider publishes a mealkit
     Given I am a verified provider on my dashboard
-    When  I create a new Mealkit with a title, ingredient list, steps, and set a price
-    Then  the mealkit is published and visible to customers on the browse screen
+    When  I create a new Mealkit, Mealplan or Recipe
+    Then  the mealkit/mealplan/recipe is published and visible to customers on the browse screen
   ```
 
 - **US-22 — View Service Statistics**  
-  _Story:_ As a provider, I want to see active subscriber counts, overall ratings, and views-to-saves ratios for my services, so that I can understand how my content is performing.  
+  _Story:_ As a provider, I want to see active subscriber counts, overall ratings, and saves, so that I can understand how my content is performing.  
   _Acceptance:_
   ```gherkin
   Scenario: Provider views dashboard stats
     Given I have at least one published service with customer interactions
     When  I open my provider dashboard
-    Then  I see active subscriber count, average rating, and VTS ratio for each service
+    Then  I see active subscriber count, average rating, and saves for my services
   ```
 
 - **US-23 — Reply to a Review**  
@@ -163,12 +162,10 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
 ---
 
 ## 5. Milestones (course‑aligned)
-- **M1 Requirements** — this file + stories opened as issues. 
-- **M2 High‑fidelity prototype** — core customer/provider flows fully interactive. 
-- **M3 Design** — architecture, schema, API outline. 
-- **M4 Backend API** — key endpoints + tests. 
-- **M5 Increment** — ≥2 use cases end‑to‑end. 
-- **M6 Final** — complete system & documentation. 
+- **M0 Requirements** — this file + stories opened as issues. 
+- **M1 High‑fidelity prototype** — core customer/provider flows fully interactive. 
+- **M2 Backend API** — key endpoints + tests. 
+- **M3 Final** — complete system & documentation. 
 
 ---
 

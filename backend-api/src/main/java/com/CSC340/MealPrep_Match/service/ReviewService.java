@@ -86,6 +86,20 @@ public class ReviewService {
         return reviewRepository.save(review);
     }
 
+    public Review reply(Long reviewId, Long providerId, String replyText) {
+        Review review = getById(reviewId);
+
+        Long ownerId = review.getRecipe().getProvider().getId();
+        if (!ownerId.equals(providerId)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                    "Only the provider of this recipe can reply to its reviews");
+        }
+
+        review.setProviderReply(replyText);
+        review.setRepliedAt(Instant.now());
+        return reviewRepository.save(review);
+    }
+
     public void delete(Long id) {
         if (!reviewRepository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Review not found: " + id);
